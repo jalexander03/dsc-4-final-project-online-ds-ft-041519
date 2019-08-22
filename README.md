@@ -1,165 +1,184 @@
 
-# Module 4 Final Project
+# **Module 4 Project - Human Protein Image Classification**
+
+# **Project Overview**
+
+In this project, I will be working with the Human Protein Atlas (HPA) image classification dataset - acquired in a highly standardized way using one imaging modality (confocal microscopy). The goal of this project is to develop models using deep learning techniques that are capable of classifying mixed patterns of proteins in microscope images. 
+
+Visualizing proteins in cells are commonly used for biomedical research and these cells could hold the key for the next breakthrough in medicine. Thanks to advances in high-throughput microscopy, protein images are generated at a far greater pace than what can be manually evaluated. Therefore, the need is greater than ever for automating biomedical image analysis to accelerate the understanding of human cells and disease. Proteins are “the doers” in the human cell, executing many functions that together enable life. Historically, classification of proteins has been limited to single patterns in one or a few cell types, but in order to fully understand the complexity of the human cell, models must classify mixed patterns across a range of different human cells.
+
+## Human Protein Atlas
+
+The Human Protein Atlas (HPA) is a Swedish-based program started in 2003 with the aim to map human proteins in cells, tissues and organs. HPA uses the integration of various omics technologies, including antibody-based imaging, mass spectrometry-based proteomics, transcriptomics and systems biology. All the data in the knowledge resource is open access to allow scientists both in academia and industry to freely access the data for exploration of the human proteome.
+
+![](README_imgs/Microscope.png)
+
+## About Proteins
 
 
-## Introduction
+Protein structures are the three-dimensional arrangement of atoms in an amino acid-chain molecule. Proteins are polymers, specifically polypeptides, formed from sequences of amino acids - the monomers of the polymer. A single amino acid monomer may also be called a residue indicating a repeating unit of a polymer. Proteins do not function in isolation; it's their interactions with one another and also with other molecules (e.g. DNA, RNA) that mediate metabolic and signaling pathways, cellular processes, and organismal systems.
 
-In this lesson, we'll review all of the guidelines and specifications for the final project for Module 4. 
+Due to their central role in biological function, protein interactions also control the mechanisms leading to healthy and diseased states in organisms. Diseases are often caused by mutations affecting the binding interface or leading to biochemically dysfunctional allosteric changes in proteins. Therefore, protein interaction networks can elucidate the molecular basis of disease, which in turn can inform methods for prevention, diagnosis, and treatment.
 
-## Objectives
-You will be able to:
-* Describe all required aspects of the final project for Module 4
-* Describe all required deliverables
-* Describe what constitutes a successful project
-* Describe what the experience of the project review should be like
+![](README_imgs/HPA.png)
 
-## Final Project Summary
+## Dataset
 
-You've made it all the way through one of the toughest modules of this course, and demonstrated a solid understanding of the principles of Deep Learning. You must have an amazing brain in your head!
-
-<img src='https://raw.githubusercontent.com/learn-co-curriculum/dsc-4-final-project/master/brain.gif' height=40% width=40%>
-
-For this module's final project, you'll put everything you've learned together to build a Deep Neural Network that trains on a large dataset for classification on a non-trivial task! This project will include:
-
-* Selecting a problem 
-* Sourcing an appropriate dataset
-* Setting up your project (directory structure, etc)
-* Building, training, tuning, and evaluating a Deep Neural Network
-* Explaining your methodology and findings in a clear, concise manner
-
-Let's get started by examining the dataset requirements for this project.
-
-## The Dataset
-
-For this module's project, the dataset will be heavily tied to the problem you are trying to solve. We recommend that you base your project around one of the three following subdomains in Deep Learning which you now have experience with:
-
-* Traditional  analytics (classification or regression tasks)
-* Computer Vision
-* Text Classification/NLP
-
-### Picking a Reasonable Problem
-
-Note that in respect to this project, all datasets and problems are not created equal--while you could likely build a working model for just about any dataset you find in theory, in practice, you'll find that many datasets have dimensionality issues that make them intractable for training without spending hundreds or even thousands of dollars training your model on a professional server cluster filled with high-end GPUs.
-
-A good litmus test for checking a project's feasibility is to head over to Kaggle or do a quick Google search to see if anyone else has already solved this problem. If they have, then it's likely that you can, too! Just remember, you only have access to a local machine for this project, not a server cluster, so the problem should be one that can be solved on your own laptop!
-
-Here are some caveats you should consider when selecting your dataset:
-
-#### A Note on Computer Vision Datasets
-
-**Try to stay away from color images, or images that are larger than 40x40 pixels**. Convolutional Layers are very expensive, and most models can still make successful classifications on grainy, black-and-white images just fine. Pictures that are too large add a bunch of needless dimensionality to the model--remember, every single pixel in the model is a dimension! Similarly, since color images are Rank-3 Tensors (3-dimensional arrays contain Red, Green, and Blue values for each pixel), they also needlessly triple dimensionality without adding important information to your model in most cases.
-
-#### Aim for a Proof of Concept
-
-With Deep Learning, data is king--the more of it, the better. However, the goal of this project isn't to build the best model possible--it's to demonstrate your understanding by building a model that works. The true goal of this project is to gain experience with Deep Learning and to build a portfolio project you can be proud of, and that doesn't necessarily require a model with incredibly high accuracy. You should try to avoid datasets and model architectures that won't run in reasonable time on your own machine. For many problems, this means downsampling your dataset and only training on a portion of it. Once you're absolutely sure that you've found the best possible architecture and other hyperparameters for your model, then consider training your model on your entire dataset overnight (or, as larger portion of the dataset that will still run in a feasible amount of time). 
-
-At the end of the day, we want to see your thought process as you iterate and improve on a model. A Project that achieves a lower level of accuracy but has clearly iterated on the model and the problem until it found the best possible approach is more impressive than a model with high accuracy that did not iteration. We're not just interested in seeing you finish a model--we want to see that you understand them, and can use this knowledge to try and make them better and better!
-
-
-#### Preexisting Datasets
-
-As you start exploring datasets that are appropriate for Deep Learning, you'll probably start to see some of the same datasets mentioned again and again, such as CIFAR10. For this project, it is acceptable to use popular preexisting datasets. **It is also acceptable to use datasets that you've found on popular websites such as Kaggle--you'll find a very active Deep Learning community on that website and plenty of awesome datasets that are perfect for this sort of project!**
-
-#### Sourcing Your Own Dataset
-
-If you so choose, you are also welcome to source your own dataset for this project, although we strongly advise you to think carefully about whether this is worth the time before attempting this! You'll likely need thousands of examples, and scraping google images or other websites can sometimes be more trouble than it's worth. If you feel up to the task, then you are more than welcome to source your own dataset through scraping. However, we strongly encourage you to search the web for preexisting datasets that would work for your chosen task before attempting to source your own, as they likely already exist, and will save you a ton of time debugging your scraping code or getting an API to work.  **If you plan on sourcing your own dataset for this project, please clear this with your instuctor first!**
+* Predict various protein structures in cellular images
+* 512x512 PNG size images
+* 31,100 training files
+* 11,700 testing files
+* 28 different target proteins (labels)
+* 27 different cell types of highly different morphology
+* Multiple proteins can be present in one image (multilabel classification)
+* Image samples are represented by four filters
+    * Protein of interest (green) 
+    * Three cellular landmarks: nucleus (blue), microtubules (red), endoplasmic reticulum (yellow)
+    
+    0.  Nucleoplasm  
+    1.  Nuclear membrane   
+    2.  Nucleoli   
+    3.  Nucleoli fibrillar center   
+    4.  Nuclear speckles   
+    5.  Nuclear bodies   
+    6.  Endoplasmic reticulum   
+    7.  Golgi apparatus   
+    8.  Peroxisomes   
+    9.  Endosomes   
+    10.  Lysosomes   
+    11.  Intermediate filaments   
+    12.  Actin filaments   
+    13.  Focal adhesion sites   
+    14.  Microtubules   
+    15.  Microtubule ends   
+    16.  Cytokinetic bridge   
+    17.  Mitotic spindle   
+    18.  Microtubule organizing center   
+    19.  Centrosome   
+    20.  Lipid droplets   
+    21.  Plasma membrane   
+    22.  Cell junctions   
+    23.  Mitochondria   
+    24.  Aggresome   
+    25.  Cytosol   
+    26.  Cytoplasmic bodies   
+    27.  Rods & rings
+    
+ # **Exploratory Data Analysis**
  
+ ![](README_imgs/DataEDA.png)
  
- #### Avoid Generative Models
- 
-After the end of the Deep Learning module, you may be tempted to try building a Generative Model such as a Generative Adversarial Network, Variation Autoencoder, or Sequence Generation model. Although you theoretically know enough to attempt such problems, in practice, these models are much too computationally intensive for you to see any meaningful results on a local machine in the time allotted. For reference, most GANs for image generation need to train for a minimum of 3 days straight on a server cluster with 64 high-end GPUs before showing any meaningful results! The other issue with generative models is that they are unsupervised, so it is impossible to generate any sort of accuracy or performance metrics. **For this reason, you must stick to supervised learning and only build discriminative models for this project. No generative models will be approved.**
+* The most common protein structures belong to organelles like the plasma membrane, the cytosol and the nucleus. 
 
-## The Deliverables
+* The least common protein structures belong to organelles like lipid droplets, peroxisomes, endosomes, lysosomes, microtubule ends, rods and rings. For these classes, the prediction might become difficult as we have only a few examples. Due to this lack of availability, we will make less accurate predictions on these lesser-occurring classes.
 
-There will be four deliverables for this project:
+* As a result, model accuracy might not be the right metric to measure performance. A validation strategy should help achieve better modeling performance.
 
-1. A well documented **Jupyter Notebook** containing any code you've written for this project and comments explaining it. This work will need to be pushed to your GitHub repository in order to submit your project.
-2. A short **Keynote/PowerPoint/Google Slide presentation** (delivered as a PDF export) giving a high-level overview of your methodology and recommendations for non-technical stakeholders. Make sure to also add and commit this pdf of your non-technical presentation to your repository with a file name of presentation.pdf. 
-3. A **blog post** (800-1500 words) about one element of the project - it could be the EDA, the feature selection, the choice of visualizations or anything else technical relating to the project. It should be targeted at your peers - aspiring data scientists.
-4. A **Video Walkthrough** of your non-technical presentation. Some common video recording tools used are Zoom, Quicktime, and Nimbus. After you record your presentation, publish it on a service like YouTube or Google Drive, you will need a link to the video to submit your project.
+![](README_imgs/LabelCounts.png)
 
-## The Process
+* Almost 50% of images have only 1 target
+* 40% of images have 2 targets
+* 10% of images have 3 targets
+* < 2% of images have 4 or 5 targets
 
-### 1. Getting Started
+![](README_imgs/GreenFilter.png)
 
-Please start by reviewing this document. If you have any questions, please ask them in slack ASAP so (a) we can answer the questions and (b) so we can update this repository to make it clearer.
+![](README_imgs/RedFilter.png)
 
-Once you're done with the rest of the module, please start on the project. Do that by forking this repository, cloning it locally, and working in the student.ipynb file. Make sure to also add and commit a pdf of your presentation to the repository with a file name of `presentation.pdf`.
+![](README_imgs/BlueFilter.png)
 
-### 2. The Project Review
+![](README_imgs/YellowFilter.png)
 
-#### What to expect from the Project Review
+Looking at this the example of Lysosomes and Endosomes, we can already obtain some insights:
 
-Project reviews are focused on preparing you for technical interviews. Treat project reviews as if they were technical interviews, in both attitude and technical presentation *(sometimes technical interviews will feel arbitrary or unfair - if you want to get the job, commenting on that is seldom a good choice)*.
-
-The project review is comprised of a 45 minute 1:1 session with one of the instructors. During your project review, be prepared to:
-
-#### 1. Deliver your PDF presentation to a non-technical stakeholder. 
-In this phase of the review (~10 mins) your instructor will play the part of a non-technical stakeholder that you are presenting your findings to. The presentation should not exceed 5 minutes, giving the "stakeholder" 5 minutes to ask questions.
-
-In the first half of the presentation (2-3 mins), you should summarize your methodology in a way that will be comprehensible to someone with no background in data science and that will increase their confidence in you and your findings. In the second half (the remaining 2-3 mins) you should summarize your findings and be ready to answer a couple of non-technical questions from the audience. The questions might relate to technical topics (sampling bias, confidence, etc) but will be asked in a non-technical way and need to be answered in a way that does not assume a background in statistics or machine learning. You can assume a smart, business stakeholder, with a non-quantitative college degree.
-
-#### 2. Go through the Jupyter Notebook, answering questions about how you made certain decisions. Be ready to explain things like:
-    * "how did you pick the question(s) that you did?"
-    * "why are these questions important from a business perspective?"
-    * "how did you decide on the data cleaning options you performed?"
-    * "why did you choose a given method or library?"
-    * "why did you select those visualizations and what did you learn from each of them?"
-    * "why did you pick those features as predictors?"
-    * "how would you interpret the results?"
-    * "how confident are you in the predictive quality of the results?"
-    * "what are some of the things that could cause the results to be wrong?"
-
-Think of the second phase of the review (~30 mins) as a technical boss reviewing your work and asking questions about it before green-lighting you to present to the business team. You should practice using the appropriate technical vocabulary to explain yourself. Don't be surprised if the instructor jumps around or sometimes cuts you off - there is a lot of ground to cover, so that may happen.
-
-If any requirements are missing or if significant gaps in understanding are uncovered, be prepared to do one or all of the following:
-* Perform additional data cleanup, visualization, feature selection, modeling and/or model validation
-* Submit an improved version
-* Meet again for another Project Review
-
-What won't happen:
-* You won't be yelled at, belittled, or scolded
-* You won't be put on the spot without support
-* There's nothing you can do to instantly fail or blow it
-
-## Requirements
-
-This section outlines the rubric we'll use to evaluate your project.
-
-### 1. Technical Report Must-Haves
-
-Your jupyter notebook should include all code written for this project. This includes any code for sourcing, cleaning, and preprocessing data. Your technical report should also contain a record of the various different hyperparameters you tried during the tuning process, and the results each achieved. Any data scientist given your technical report should be able to reproduce every step you took during the project from start to finish and achieve the same results, so don't forget to set a random seed for reproducibility!
-
-As always, your jupyter notebook should be well-organized and easy to read, with clean, well-commented code as necessary.
+* The staining of target proteins in the green filter was not entirely successful with each iteration. The intensities of the images differ and the target proteins are not easily locatable. In the first image, the batch_loader displays endosomes that are varied in multiple regions over the cells and in the second and third you can find endosomes and lysosomes more concetrated around the nucleus. 
 
 
-### 2. Non-Technical Presentation Must-Haves
+* Within the red channel we can see morphological differences. It looks like if the cells are of different types. This an assumption, nevertheless one could use the red channel information to reveal cell types.  
 
-Just as with the other projects, you should also complete a 5-10 slide PowerPoint or Google Slides presentation that explains your problem, methodology, and results to non-technical stakeholders. This can be especially hard with Deep Learning--try not to get bogged down with technical jargon! Your slide deck should take ~5 minutes to go through and should contain graphics and avoid long blocks of text or code when possible. 
 
-**_HINT_**: Keras provides [excellent documentation](https://keras.io/visualization/) on how to create a visualization of your neural network's architecture!
+* In addition, its important to observe that the images can contain different cell densities. Sometimes the whole image is covered with cells and sometimes there are only a few. If we like to detect same targets out of different bright images, this will cause problems as we expect them to be in a similar value range. 
 
-### 3. Blog Post
+# **CNN Model**
 
-Please also write a blog post about your experience working on this project. This blog post should provide insight into the problem you are trying to solve and your dataset, any preprocessing steps required, and your approach to building and iteratively tuning your model. It should also contain an explanation of any problems, obstacles, or surprises you encountered during this project. The blog post should be between 800-1500 words and should be targeted at your peers - aspiring data scientists.
+A Convolutional Neural Network (CNN) is a Deep Learning algorithm which can take in an input image, assign importance (learnable weights and biases) to various aspects/objects in the image, then be able to differentiate one from the other. The architecture of a CNN is analogous to that of the connectivity pattern of neurons in the human brain and was inspired by the organization of the Visual Cortex. Individual neurons respond to stimuli only in a restricted region of the visual field known as the Receptive Field. A collection of such fields overlap to cover the entire visual area.
 
-## Submitting your Project
+![](README_imgs/ProbPred.png)
 
-You’re almost done! In order to submit your project for review, include the following links to your work in the corresponding fields on the right-hand side of Learn.
+* **Major Problem**: Notice the baseline model was clearly uncertain to predict the presence of a target protein. Based upon the density function, most probabilities are close to zero. There are only a few with targets where the model predicted a protein structure with higher than 10%.
 
-1. **GitHub Repo:** Now that you’ve completed your project in Jupyter Notebooks, push your work to GitHub and paste that link to the right. (If you need help doing so, review the resources [here](https://docs.google.com/spreadsheets/d/1CNGDhjcQZDRx2sWByd2v-mgUOjy13Cd_hQYVXPuzEDE/edit#gid=0).)
-_Reminder: Make sure to also add and commit a pdf of your non-technical presentation to the repository with a file name of presentation.pdf._
-2. **Blog Post:** Include a link to your blog post.
-3. **Record Walkthrough:** Include a link to your video walkthrough.
 
-Hit "I'm done" to wrap it up. You will receive an email in order to schedule your review with your instructor.
+* Looking at the true target label count, we can see that most of the targets are filled with zeros (over 90%). This corresponds to an absence of corresponding target proteins. This makes sense because based upon EDA, for each image, we have a high probability (Almost 90%) to contain either 1 or 2 target protein structures. These label values are one whereas all others are zero. 
 
-## Summary
 
-The end of module projects and project reviews are a critical part of the program. They give you a chance to both bring together all the skills you've learned into realistic projects and to practice key "business judgement" and communication skills that you otherwise might not get as much practice with.
+* Consequently, the high accuracy belongs to a correct prediction of the **absence** of target proteins. As a result, we weren't able to predict the **presence** of a target protein.
 
-The projects are serious and important. They are not graded, but they can be passed and they can be failed. Take the project seriously, put the time in, ask for help from your peers or instructors early and often if you need it, and treat the review as a job interview and you'll do great. We're rooting for you to succeed and we're only going to ask you to take a review again if we believe that you need to. We'll also provide open and honest feedback so you can improve as quickly and efficiently as possible.
+![](README_imgs/Top3Features.png)
 
-We don't expect you to remember all of the terms or to get all of the answers right. If in doubt, be honest. If you don't know something, say so. If you can't remember it, just say so. It's very unusual for someone to complete a project review without being asked a question they're unsure of, we know you might be nervous which may affect your performance. Just be as honest, precise and focused as you can be, and you'll do great!
+* Due to the false accuracy of the previous model, there was improvements to be made to the CNN model. Here, I focused on class imbalance. To start as improvement model, I chose the top three features (in terms of presence in the data) **nucleoplasm, cytosol and plasma membrane** and built a model that only tries to classify these three features.
+
+# **Conclusion**
+
+This project involved 28 different mixed protein pattern locations and 27 different cell types. Given the training data, multiple proteins can be present in one image resulting in a classification problem called multi-label classification. In multi-label classification, the training set is composed of instances each associated with a set of labels, and the task is to predict the label sets of unseen instances through analyzing training instances with known label sets. Specific to this project, target proteins can be found in multiple areas within the cell, therefore, identifying the patterns in which these proteins are found is the objective for the deep learning model. 
+
+## Challenges 
+
+* Multi-label classification is inherently difficult. For example, *multi-class* classification makes the assumption that each sample is assigned to one and only one label: a fruit can be either an apple or a pear but not both at the same time. Whereas, an instance of *multi-label* classification can be that a text might be about any of religion, politics, finance or education at the same time or none of these. For the project, protein patterns could be classified within many locations within a cell, or no locations. With the initial baseline CNN model, we experienced a misleading accuracy score. The high accuracy belonged to a correct prediction of the absence of target proteins. As a result, we weren't able to predict the presence of a target protein.
+
+
+* Images were taken under different filter types. However initially, the images provided in the dataset are black and white. During confocal microscopy, proteins of interest were stained in a green filter. The three cellular landmarks of the nucleus (blue), microtubules (red), endoplasmic reticulum (yellow) were each stained a different color as well. In order to provide an analysis of the images during EDA, I built several functions and one class to ensure the images were loaded in the proper format and with the accurate filter type. 
+
+
+* Due to the larger sizes of images, 512x512, the project needed dimensionality reduction in order for the model to train properly without overloading computer processing power. To solve this, I built an image preprocessing class that reshaped the image size to 128x128. This specific size was small enough to save processing power, but large enough to save important information regarding the protein locations. 
+
+
+* Class imbalance regarding the CNN baseline model provided a misleading score. Initially, after performing cross validation, the y_pred vs. y_true accuracy scored a 94%. An amazing score for such a complex model. Digging deeper however, it's revealed that the high accuracy belongs to a correct prediction of the absence of target proteins. As a result, we weren't able to predict the presence of a target protein.
+
+## Solutions
+
+* To initially formulate a dataframe with individual label targets, I built a function called **targetlabels** that added a column for each individual label. So now instead of one column in the initial csv, each label has it's own column. The dataframe now has 30 columns and represents the 28 possible protein pattern locations. 
+
+
+* To solve the filter problem indicated above, I built several functions and one class called **TargetGroupIterator** to ensure the images were loaded in the proper format and with the accurate filter type. To view images representing the different filter types, a batchloader was created to color maps each image (based upon its basepath _green, _red, etc.) and then iterates through each of the images that align with the target.
+
+
+* To be trained on, the images needed to be loaded in a specific way so each image_id (there are four images per each id) appeared at the same time of training. Also needed to include cross-validation at this time. To perform the splitting on the train image ids, I used a repeated kfold splitter. In this way, I could easily load images and targets given the chunk ids. Though, due to RAM limitations, I used one cv-fold to explore results.
+
+
+* It was important to use only the green channel of images per id. The provided information of the dataset by the Human Protein Atlas indicates that it shows the stained target proteins. The other images are simply reference points revealing the microtubules, nucleus, and endoplasmatic reticulum. 
+
+
+* To solve the dimensionality problem, I built an image preprocessing class that reshaped the image size to 128x128. The aim of this was to improve the image data (features) by suppressing unwanted distortions so that our deep learning models can benefit from this improved data to work on.
+
+
+* Due to the false accuracy of the previous model, there was improvements to be made to the CNN model. Here, I focused on class imbalance. To start as improvement model, I chose the top three features (in terms of presence in the data) **nucleoplasm, cytosol and plasma membrane** and built a model that only tries to classify these three features.
+
+## Recommendations
+
+* Mixed protein clusters occur in many areas around the cell. However, many clusters can be found around the nucleus and the processes that occur within the cytosol. This nucleus has two major functions: it stores the cell's hereditary material, or DNA, and it coordinates the cell's activities which includes intermediary metabolism, protein synthesis, and cell division.
+
+
+* Protein are also commonly forming on the edges of cells. For example, the plasma membrane. the primary function of the plasma membrane is to protect the cell from its surroundings. Composed of a phospholipid bilayer with embedded proteins, the plasma membrane is selectively permeable to ions and organic molecules and regulates the movement of substances in and out of cells. 
+
+
+* Overall, building a model that classifies multi-labeled imaging takes significant preprocessing and that should be accounted for when building a project plan. It would be beneficial to have several functions handy for the purpose of easy calling these functions to reduce dimensionality, batch-loading, kernel settings, and building parameters. 
+
+## Further Work
+
+* Continue building an effective CNN model with that battles inefficient class imbalances. 
+
+
+* Perform target group analysis using a Latent Variable model.
+
+
+* Perform Bernoulli Mixture model to target groups found by clustering.
+
+
+* Building visualizations that show mixed protein clusters within each cell. 
+
+## Thank you!
+
+
+
 
 
